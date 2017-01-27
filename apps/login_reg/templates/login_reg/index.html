@@ -16,7 +16,7 @@
         {% endfor %} {% endif %}
     </div>
     <div class="col-xs-6">
-        <h2>Register</h2>
+        <h2>Register:</h2>
         <form class="" action="{% url 'login_ns:register' %}" method="post">
             {% csrf_token %} First Name: <input type="text" name="first_name" value=""><br> Last Name: <input type="text" name="last_name" value=""><br> Email: <input type="text" name="email" value=""><br> Password:
             <input type="password" name="pass1"
@@ -25,7 +25,7 @@
         </form>
     </div>
     <div class="col-xs-6">
-        <h2>Login</h2>
+        <h2>Login:</h2>
         <form class="" action="{% url 'login_ns:login' %}" method="post">
             {% csrf_token %} Email: <input type="text" name="email" value=""><br> Password: <input type="password" name="pass1" value=""><br>
             <input type="submit" name="" value="Log In" class="btn btn-primary">
