@@ -41,7 +41,7 @@
               <tr>
                 <td><a href="{% url 'items_ns:view_item' item.id %}">{{item.name}}</a></td>
                 <td>{{item.added_by.first_name}}</td>
-                <td>{{item.created_at}}</td>
+                <td>{{item.created_at|date:"M d, Y"}}</td>
                 <td>{% if not item.added_by.id == request.session.id %}
                   <form class="" action="{% url 'items_ns:delete_item' item.id %}" method="post">
                     {% csrf_token %}
@@ -71,7 +71,7 @@
               <tr>
                 <td><a href="{% url 'items_ns:view_item' item.id %}">{{item.name}}</a></td>
                 <td>{{item.added_by.first_name}}</td>
-                <td>{{item.created_at}}</td>
+                <td>{{item.created_at|date:"M d, Y"}}</td>
                 <td>
                   <form class="" action="{% url 'items_ns:add_item_to_wl' %}" method="post">
                     {% csrf_token %}
