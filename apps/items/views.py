@@ -31,19 +31,23 @@ def create_item(request):
     Item.objects.create_item(request.POST, request.session['user_id'])
     return redirect('items_ns:index')
 
-def remove_item(request, item_id, user_obj):
-    pass
+def remove_item(request):
+    item_id = request.POST['item_id']
+    user_id = request.POST['user_id']
+    Item.objects.remove_from_wl(item_id, user_id)
+    return redirect('items_ns:index')
 
 
-def edit_item(request, post_id):
-    if not Item.objects.is_user(post_id, request.session['user_id']):
-        messages.add_message(request, messages.ERROR, 'You can only edit your own items, fella.')
-        return redirect('items_ns:index')
+def view_item(request, item_id):
     items_info = Item.objects.get_item_data(item_id)
+    users = Item.objects.get_item_wishers(item_id)
+    all_data = Item.objects.get_all_data(request.session['user_id'])
     context = {
-        'items_data': items_info
+        'items_data': items_info,
+        'users': users,
+        'data': all_data
     }
-    return render(request, 'items/items.html', context)
+    return render(request, 'items/item.html', context)
 def update_item(request, item_id):
     Item.objects.update_item(request.POST, item_id)
     return redirect('/')

@@ -39,15 +39,19 @@
             </tr>
             {% for item in data.wishlist %}
               <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.added_by.name}}</td>
+                <td><a href="{% url 'items_ns:view_item' item.id %}">{{item.name}}</a></td>
+                <td>{{item.added_by.first_name}}</td>
                 <td>{{item.created_at}}</td>
-                <td>{% if item.user.id == request.session.id %}
-                  <form class="" action="{% url 'items_ns:delete_item' %}" method="post">
+                <td>{% if not item.added_by.id == request.session.id %}
+                  <form class="" action="{% url 'items_ns:delete_item' item.id %}" method="post">
+                    {% csrf_token %}
                     <input type="submit" name="" value="Delete Item" class="btn btn-danger">
                   </form>
                   {% else %}
                   <form class="" action="{% url 'items_ns:remove_item' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{item.id}}">
+                    <input type="hidden" name="user_id" value="{{request.session.user_id}}">
                     <input type="submit" name="" value="Remove Item From Wishlist" class="btn btn-warning">
                   </form>
                   {% endif %}
@@ -65,21 +69,17 @@
             </tr>
             {% for item in data.other_items %}
               <tr>
-                <td>{{item.name}}</td>
+                <td><a href="{% url 'items_ns:view_item' item.id %}">{{item.name}}</a></td>
                 <td>{{item.added_by.first_name}}</td>
                 <td>{{item.created_at}}</td>
-                <td>{% if item.user.id == request.session.id %}
-                  <form class="" action="{% url 'items_ns:delete_item' %}" method="post">
-                    <input type="submit" name="" value="Delete Item" class="btn btn-danger">
-                  </form>
-                  {% else %}
+                <td>
                   <form class="" action="{% url 'items_ns:add_item_to_wl' %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="item_id" value="{{item.id}}">
                     <input type="hidden" name="user_id" value="{{request.session.user_id}}">
                     <input type="submit" name="" value="Add Item To Wishlist" class="btn btn-primary">
                   </form>
-                  {% endif %}
+
                 </td>
               </tr>
             {% endfor %}

@@ -6,7 +6,7 @@ from ..login_reg.models import User
 class ItemManager(models.Manager):
     def create_item(self, postData, user_id):
         user_name=User.objects.get(id=user_id)
-        self.create(name=postData['content'], user=User.objects.get(id=user_id), added_by=user_name)
+        self.create(name=postData['content'], user=User.objects.get(id=user_id), added_by=user_name.first_name)
         item_id = self.filter().latest('id')
         self.add_to_wishlist(item_id.id, user_id)
 
@@ -36,6 +36,15 @@ class ItemManager(models.Manager):
     def get_other_items(self, user_id):
         return self.all().exclude(wishlist__id=user_id)
 
+    def remove_from_wl(self, item_id, user_id):
+        item_obj = self.get(id=item_id)
+        user_obj = User.objects.get(id=user_id)
+        item_obj.wishlist.remove(user_obj)
+
+    def get_item_wishers(self, item_id):
+        users = User.objects.filter(in_wishlist=item_id)
+        print users
+        return users
 
     def get_item_data(self, item_id):
         item_data = self.get(id=item_id)
