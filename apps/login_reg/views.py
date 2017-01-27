@@ -24,11 +24,11 @@ def register(request):
 def login(request):
     is_email = User.objects.check_email(request.POST)
     if is_email:
-         messages.error(request, 'This email has not been registered.')
+         messages.error(request, 'This user name has not been registered.')
          return redirect('login_ns:index')
     is_match = User.objects.login(request.POST)
     if not is_match:
-        messages.error(request, 'The email or password is incorrect.')
+        messages.error(request, 'The user name or password is incorrect.')
         return redirect('login_ns:index')
     request.session['user_id'] = User.objects.set_session(request.POST)
     return redirect(reverse('items_ns:index'))

@@ -6,7 +6,7 @@ from ..login_reg.models import User
 class ItemManager(models.Manager):
     def create_item(self, postData, user_id):
         user_name=User.objects.get(id=user_id)
-        self.create(name=postData['content'], user=User.objects.get(id=user_id), added_by=user_name.first_name)
+        self.create(name=postData['content'], user=User.objects.get(id=user_id), added_by=user_name)
         item_id = self.filter().latest('id')
         self.add_to_wishlist(item_id.id, user_id)
 
