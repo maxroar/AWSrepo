@@ -8,7 +8,7 @@ def index(request):
     if 'user_id' in request.session:
         messages.add_message(request, messages.ERROR, 'You were already logged in, goof. If you would like to log into or register a new account, please log out first.')
         print('logged in')
-        return redirect(reverse('posts_ns:the_wall'))
+        return redirect(reverse('items_ns:index'))
     return render(request, 'login_reg/index.html')
 def register(request):
     errors = User.objects.validate_reg(request.POST)
@@ -20,7 +20,7 @@ def register(request):
     user_data = User.objects.create_user(request.POST)
 
     request.session['user_id'] = User.objects.set_session(request.POST)
-    return redirect(reverse('posts_ns:the_wall'))
+    return redirect(reverse('items_ns:index'))
 def login(request):
     is_email = User.objects.check_email(request.POST)
     if is_email:
@@ -31,7 +31,7 @@ def login(request):
         messages.error(request, 'The email or password is incorrect.')
         return redirect('login_ns:index')
     request.session['user_id'] = User.objects.set_session(request.POST)
-    return redirect(reverse('posts_ns:the_wall'))
+    return redirect(reverse('items_ns:index'))
 
 def logout(request):
     request.session.flush()

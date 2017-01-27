@@ -18,6 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('apps.login_reg.urls', namespace='login_ns')),
-    url(r'^posts/', include('apps.posts.urls', namespace='posts_ns')),
-    url(r'^comments/', include('apps.comments.urls', namespace='comments_ns')),
+    url(r'^items/', include('apps.items.urls', namespace='items_ns')),
 ]

@@ -29,28 +29,13 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <form class="" action="{% url 'posts_ns:create_post' %}" method="post">
+          <form class="" action="{% url 'items_ns:create_item' %}" method="post">
             {% csrf_token %}
-            New Post: <input type="text" name="content" value="">
-            <input type="submit" name="" value="Add Post" class='btn btn-primary'>
+            New Item: <input type="text" name="content" value="">
+            <input type="submit" name="" value="Add Item" class='btn btn-primary'>
           </form>
         </div>
       </div>
-      {% for post in data.posts %}
-      <div class="row">
-        <div class="col-xs-10">
-          {{post.content}}
-        </div>
-        <div class="col-xs-2">
-          {% if request.session.user_id == post.user.id %}
-          <form class="" action="{% url 'posts_ns:edit_post' post.id %}" method="post">
-            {% csrf_token %}
-            <input type="submit" name="" value="Edit Post"class="btn btn-warning">
-          </form>
-          {% endif %}
-        </div>
-      </div>
-      {% endfor %}
     </div>
   </body>
 </html>

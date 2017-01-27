@@ -31,8 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'apps.comments', #comments for posts or pics or whatev
-    'apps.posts', #this is an app that lets you post messages and comment on them
+    'apps.items', #this is an app that lets you add items
     'apps.login_reg', #self explanatory
     'django.contrib.admin',
     'django.contrib.auth',
