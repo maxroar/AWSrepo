@@ -40,9 +40,47 @@
             {% for item in data.wishlist %}
               <tr>
                 <td>{{item.name}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{item.added_by.name}}</td>
+                <td>{{item.created_at}}</td>
+                <td>{% if item.user.id == request.session.id %}
+                  <form class="" action="{% url 'items_ns:delete_item' %}" method="post">
+                    <input type="submit" name="" value="Delete Item" class="btn btn-danger">
+                  </form>
+                  {% else %}
+                  <form class="" action="{% url 'items_ns:remove_item' %}" method="post">
+                    <input type="submit" name="" value="Remove Item From Wishlist" class="btn btn-warning">
+                  </form>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+
+          <table>
+            <tr>
+              <th>Item</th>
+              <th>Added By</th>
+              <th>Date Added</th>
+              <th>Action</th>
+            </tr>
+            {% for item in data.other_items %}
+              <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.added_by.first_name}}</td>
+                <td>{{item.created_at}}</td>
+                <td>{% if item.user.id == request.session.id %}
+                  <form class="" action="{% url 'items_ns:delete_item' %}" method="post">
+                    <input type="submit" name="" value="Delete Item" class="btn btn-danger">
+                  </form>
+                  {% else %}
+                  <form class="" action="{% url 'items_ns:add_item_to_wl' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{item.id}}">
+                    <input type="hidden" name="user_id" value="{{request.session.user_id}}">
+                    <input type="submit" name="" value="Add Item To Wishlist" class="btn btn-primary">
+                  </form>
+                  {% endif %}
+                </td>
               </tr>
             {% endfor %}
           </table>

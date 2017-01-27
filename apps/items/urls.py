@@ -7,5 +7,7 @@ urlpatterns = [
     url(r'^edit_item/(?P<item_id>\d+)$', views.edit_item, name='edit_item'),
     url(r'^update_item/(?P<item_id>\d+)$', views.update_item, name='update_item'),
     url(r'^delete_item/(?P<item_id>\d+)$', views.delete_item, name='delete_item'),
-    url(r'^display_add_item$', views.display_add_item, name='display_add_item')
+    url(r'^display_add_item$', views.display_add_item, name='display_add_item'),
+    url(r'^remove_item$', views.remove_item, name='remove_item'),
+    url(r'^add_item_to_wl$', views.add_item_to_wl, name='add_item_to_wl'),
 ]

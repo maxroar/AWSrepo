@@ -29,7 +29,7 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <form class="" action="{% url 'items_ns:create_item' %}" method="post">
+          <form class="" action="{% url 'items_ns:create_item'  %}" method="post">
             {% csrf_token %}
             New Item: <input type="text" name="content" value="">
             <input type="submit" name="" value="Add Item" class='btn btn-primary'>
